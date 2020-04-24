@@ -32,6 +32,7 @@ function LineChart({data, color}: IProps) {
       .x((value: any, index: any) => xScale(index))
       // @ts-ignore
       .y(yScale)
+      .curve(d3.curveCardinal)
 
     svgElement
       .selectAll('path')

@@ -89,7 +89,7 @@ function LineChart({data, color}: IProps) {
       .join('path')
       .attr('class', 'line')
       .attr('d', svgLine)
-      .attr('stroke-width', 2.5)
+      .attr('stroke-width', 1)
       .attr('stroke', color)
       .attr('fill', 'none')
 
