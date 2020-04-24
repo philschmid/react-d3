@@ -10,8 +10,8 @@ function App() {
   return (
     <div className="App">
       {/* <BarChart data={[1, 2, 3]} /> */}
-      <LineChart data={[12, 56, 13, 46, 23, 23, 56, 79]} />
-      <LineChart2 data={[12, 56, 13, 46, 23, 23, 56, 79]} />
+      <LineChart data={[12, 56, 13, 46, 23, 23, 56, 79]} color={'#6471D0'} />
+      <LineChart2 data={[12, 56, 13, 46, 23, 23, 56, 79]} color={'#4B57B1'} />
       <BarChart data={[12, 56, 13, 46, 23, 23, 56, 79]} />
     </div>
   )

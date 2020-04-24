@@ -6,9 +6,10 @@ import {select, axisBottom, scaleLinear} from 'd3'
 
 interface IProps {
   data: number[]
+  color: string
 }
 /* Component */
-function LineChart({data}: IProps) {
+function LineChart({data, color}: IProps) {
   const ref: any = useRef<SVGElement>(null)
 
   useEffect(() => {
@@ -38,13 +39,66 @@ function LineChart({data}: IProps) {
       .join('path')
       .attr('d', svgLine)
       .attr('fill', 'none')
-      .attr('stroke-width', 4)
-      .attr('stroke', 'blue')
-  }, [data, data.length])
+      .attr('stroke-width', 5)
+      .attr('stroke', 'white')
+  }, [color, data, data.length])
 
   return (
     <>
-      <svg width={400} height={200} ref={ref} style={{background: '#ccc', borderRadius: 25}} />
+      <div
+        style={{
+          width: 575,
+          borderRadius: 15,
+          background: '#6471D0',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '0px 25px 50px 25px',
+        }}>
+        <div>
+          <h1
+            style={{
+              color: 'white',
+              fontFamily: 'arial',
+              padding: '0px 20px',
+            }}>
+            Media Landscape
+          </h1>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'space-evenly',
+            justifyContent: 'space-between',
+          }}>
+          <svg
+            width={350}
+            height={100}
+            ref={ref}
+            style={{
+              background: color,
+              borderRadius: 15,
+            }}
+          />
+          <div
+            style={{
+              background: color,
+              borderRadius: 15,
+              height: 100,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <h1
+              style={{
+                color: 'white',
+                fontFamily: 'arial',
+                padding: '0px 30px',
+              }}>
+              55 / 100
+            </h1>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

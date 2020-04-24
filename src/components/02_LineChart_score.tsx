@@ -11,11 +11,11 @@ import {select, axisBottom, scaleLinear} from 'd3'
 
 interface IProps {
   data: number[]
+  color: string
 }
 /* Component */
-function LineChart(props: IProps) {
+function LineChart({data, color}: IProps) {
   const ref: any = useRef<SVGElement>(null)
-  const {data} = props
   useEffect(() => {
     const width = ref.current.clientWidth
     const height = ref.current.clientHeight
@@ -35,7 +35,10 @@ function LineChart(props: IProps) {
       .axisBottom(xScale)
       .ticks(data.length)
       .tickFormat((index: any) => index + 1)
-    svgElement.select('.x-axis').style('transform', `translateY(${height}px)`).call(xAxis)
+    svgElement
+      .select('.x-axis')
+      .style('transform', `translateY(${height}px)`)
+      .call(xAxis)
 
     const yAxis: any = d3.axisLeft(yScale)
     svgElement.select('.y-axis').call(yAxis)
@@ -47,20 +50,65 @@ function LineChart(props: IProps) {
       .y(yScale)
       .curve(d3.curveCardinal)
 
+    // @ts-ignore
+    const areaGenerator = d3
+      .area()
+      .x((value, index) => xScale(index))
+      // @ts-ignore
+      .y0(height)
+      // @ts-ignore
+      .y1((value, index) => yScale(value))
+      .curve(d3.curveCardinal)
+
+    var defs = svgElement.append('defs')
+
+    var gradient = defs
+      .append('linearGradient')
+      .attr('id', 'svgGradient')
+      .attr('x1', '100%')
+      .attr('x2', '100%')
+      .attr('y1', '0%')
+      .attr('y2', '100%')
+
+    gradient
+      .append('stop')
+      .attr('class', 'start')
+      .attr('offset', '0%')
+      .attr('stop-color', color)
+      .attr('stop-opacity', 0.8)
+    gradient
+      .append('stop')
+      .attr('class', 'end')
+      .attr('offset', '90%')
+      .attr('stop-color', color)
+      .attr('stop-opacity', 0)
+
     svgElement
       .selectAll('.line')
       .data([data])
       .join('path')
       .attr('class', 'line')
       .attr('d', svgLine)
+      .attr('stroke-width', 2.5)
+      .attr('stroke', color)
       .attr('fill', 'none')
-      .attr('stroke-width', 4)
-      .attr('stroke', 'blue')
-  }, [data, props.data.length])
+
+    svgElement
+      .append('path')
+      .data([data])
+      .attr('class', 'area')
+      // @ts-ignore
+      .attr('d', areaGenerator)
+      .attr('fill', 'url(#svgGradient)')
+  }, [color, data])
 
   return (
     <React.Fragment>
-      <svg width={400} height={200} ref={ref} style={{background: '#787878', overflow: 'overlay', margin: 25}}>
+      <svg
+        width={400}
+        height={200}
+        ref={ref}
+        style={{overflow: 'overlay', margin: 25}}>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
