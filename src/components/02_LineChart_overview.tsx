@@ -14,7 +14,6 @@ function LineChart({data, color}: IProps) {
 
   useEffect(() => {
     const svgElement = select(ref.current)
-    console.log()
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
       .range([0, ref.current.clientWidth])
@@ -62,7 +61,7 @@ function LineChart({data, color}: IProps) {
               fontFamily: 'arial',
               padding: '0px 20px',
             }}>
-            Media Landscape
+            xx
           </h1>
         </div>
         <div

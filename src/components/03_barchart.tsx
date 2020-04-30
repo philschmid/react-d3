@@ -37,14 +37,14 @@ function BarChart({data}: IProps) {
       .style('transform', `translateY(${height}px)`)
       .call(xAxis)
 
+    const yAxis: any = d3.axisLeft(yScale)
+    svgElement.select('.y-axis').call(yAxis)
+
     const colorScale: any = scaleLinear()
       .domain([0, 50, 75])
       // @ts-ignore
       .range(['red', 'orange', 'green'])
       .clamp(true)
-
-    const yAxis: any = d3.axisLeft(yScale)
-    svgElement.select('.y-axis').call(yAxis)
 
     svgElement
       .selectAll('.bar')
