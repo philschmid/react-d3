@@ -98,7 +98,7 @@ function DensityChart({color = '#4B57B1', textColor = 'black'}: IProps) {
       }
     }
 
-    const kde = kernelDensityEstimator(kernelEpanechnikov(6), xScale.ticks(200))
+    const kde = kernelDensityEstimator(kernelEpanechnikov(6), xScale.ticks(50))
     const density1 = kde(
       data
         .filter(function (d) {
@@ -108,7 +108,6 @@ function DensityChart({color = '#4B57B1', textColor = 'black'}: IProps) {
           return d.value
         }),
     )
-    console.log(density1)
     const density2 = kde(
       data
         .filter(function (d) {

@@ -183,6 +183,19 @@ function LineChart({data, color}: IProps) {
       .attr('fill', 'url(#svgGradient)')
 
     area.append('g').attr('class', 'brush').call(brush)
+
+    svg
+      .selectAll('.line')
+      .data([parsedData])
+      .join('path')
+      .attr('class', 'line')
+      // @ts-ignore
+      .attr('d', svgLine)
+      .attr('stroke-width', 2)
+      .attr('stroke', color)
+      .attr('fill', 'none')
+      .attr('clip-path', 'url(#clip)')
+
     const dots = svg
       .selectAll('.dot')
       .data(parsedData)
@@ -191,7 +204,7 @@ function LineChart({data, color}: IProps) {
       .attr('class', 'dot') // Assign a class for styling
       .attr('cx', (entry: any) => xScale(entry.date))
       .attr('cy', (entry: any) => yScale(entry.value))
-      .attr('r', 3)
+      .attr('r', 2)
       .attr('stroke', color)
       .attr('stroke-width', 2)
       .attr('fill', 'white')
@@ -206,18 +219,6 @@ function LineChart({data, color}: IProps) {
       .on('focusout', (entry: any, index: any) =>
         div.transition().duration(500).style('opacity', 0),
       )
-      .attr('clip-path', 'url(#clip)')
-
-    svg
-      .selectAll('.line')
-      .data([parsedData])
-      .join('path')
-      .attr('class', 'line')
-      // @ts-ignore
-      .attr('d', svgLine)
-      .attr('stroke-width', 2)
-      .attr('stroke', color)
-      .attr('fill', 'none')
       .attr('clip-path', 'url(#clip)')
 
     let idleTimeout: any
