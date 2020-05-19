@@ -73,7 +73,7 @@ function ScatterPlot({data, color}: IProps) {
       .attr('y', 0)
 
     const brush = d3
-      .brushX() // Add the brush feature using the d3.brush function
+      .brushX() // Add the brushy feature using the d3.brush function
       .extent([
         [0, 0],
         [width, height],

@@ -41,12 +41,17 @@ function BarChartVertikal({
       .domain([0, 100]) // [0, 65 (example)]
       .range([0, width]) // [0, 400 (example)]
 
-    const xAxis: any = axisBottom(xScale).ticks(data.length)
+    const xAxis: any = axisBottom(xScale)
+      .ticks(data.length)
+      //@ts-ignore
+      // .tickFormat('')
+      .tickSize(-height)
+
     svg
       .select('.x-axis')
       .style('transform', `translateY(${height}px)`)
       .call(xAxis)
-    svg.selectAll('.tick line').attr('stroke', 'transparent')
+    // svg.selectAll('.tick line').attr('stroke', 'transparent')
     svg.selectAll('.x-axis path').attr('stroke', 'transparent')
     svg.selectAll('.x-axis text').attr('color', textColor)
     // y-axis
@@ -60,9 +65,15 @@ function BarChartVertikal({
     //   return index
     // })
     svg.select('.y-axis').call(yAxis)
-    svg.selectAll('.tick line').attr('stroke', 'transparent')
+    svg.selectAll('.y-axis .tick line').attr('stroke', 'transparent')
     svg.selectAll('.y-axis path').attr('stroke', 'transparent')
     svg.selectAll('.y-axis text').attr('color', textColor)
+
+    // var gridlines = d3
+    //   // .axisTop(yScale)
+    //   .tickFormat('')
+    //   .tickSize(-height)
+    //   .scale(xScale)
 
     // tooltip
     var div = d3
